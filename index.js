@@ -3,6 +3,15 @@ const app = express();
 const port = 3000;
 const connection = require('./database');
 
+
+// Adiciona o Swagger
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./docs/openapi.yaml');
+
+// Server para documentação Swagger
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 // Middleware para interpretar JSON
 app.use(express.json());
 
@@ -12,14 +21,15 @@ app.get('/', (req, res) => {
 });
 
 
-// Endpoint para listar funcionários (ok) 00000000
-app.get('/funcionarios/', (req, res) => { 
+
+// Endpoint para listar funcionários (ok) 
+app.get('/funcionarios', (req, res) => { 
     connection.query('SELECT * FROM funcionarios', (err, results) => {
         if (err) {
             console.error('Erro ao buscar funcionarios:', err);
             return res.status(500).send('Erro no servidor');
         }
-        res.json(results);
+        res.status(200).json(results); // Att por boa prática
     });
 });
 
@@ -34,7 +44,7 @@ app.get('/funcionarios/:id', (req, res) => {
         if (result.length === 0) {
             return res.status(404).send('Funcionário não encontrado');
         }
-        res.json(result[0]); 
+        res.status(200).json(result[0]); // Att por boa prática
     });
 });
 
@@ -67,7 +77,7 @@ app.put('/funcionarios/:id', (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(404).send('Funcionário não encontrado.')
         }
-        res.json({ id, nome, cargo, salario });
+        res.status(200).json({ id, nome, cargo, salario });
     });
 });
 
@@ -84,7 +94,7 @@ app.delete('/funcionarios/:id', (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(404).send('Funcionário não encontrado.')
         }
-        res.json({ message: 'Funcionário removido com sucesso!' });
+        res.status(200).json({ message: 'Funcionário removido com sucesso!' });
     });
 });
 

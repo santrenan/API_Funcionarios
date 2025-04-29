@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: API Funcionários de uma Empresa
+  description: API RESTful para gerenciamento de funcionários utilizando Node.js e MySQL.
+  version: 1.0.0
+
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /funcionarios:
+    get:
+      summary: Lista todos os funcionários
+      tags:
+        - Funcionarios
+      responses:
+        '200':
+          description: Lista de funcionários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Funcionario'
+    post:
+      summary: Cria um novo funcionário
+      tags:
+        - Funcionarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Funcionario'
+      responses:
+        '201':
+          description: Funcionário criado
+          content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Funcionario'
+
+  /funcionarios/{id}:
+    get:
+      summary: Busca um funcionário por ID
+      tags:
+        - Funcionarios
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Funcionário encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Funcionario'
+        '404':
+          description: Funcionário não encontrado
+
+    put:
+      summary: Atualiza os dados de um funcionário
+      tags:
+        - Funcionarios
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Funcionario'
+      responses:
+        '200':
+          description: Funcionário atualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Funcionario'
+        '404':
+          description: Funcionário não encontrado
+
+    delete:
+      summary: Remove um funcionário
+      tags:
+        - Funcionarios
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Funcionário removido com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Funcionário removido com sucesso!
+        '404':
+          description: Funcionário não encontrado
+
+components:
+  schemas:
+    Funcionario:
+      type: object
+      required:
+        - nome
+        - cargo
+        - salario
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+        cargo:
+          type: string
+        salario:
+          type: number
+          format: float
