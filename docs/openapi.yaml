@@ -23,8 +23,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Funcionario'
+        '500':
+          description: Erro interno no servidor
     post:
       summary: Cria um novo funcionário
+      description: O campo 'id' é gerado automaticamente.
       tags:
         - Funcionarios
       requestBody:
@@ -40,6 +43,10 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Funcionario'
+        '400':
+          description: Todos os campos obrigatórios devem ser preenchidos
+        '500':
+          description: Erro interno no servidor
 
   /funcionarios/{id}:
     get:
@@ -59,8 +66,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Funcionario'
+        '400':
+          description: Todos os campos obrigatórios devem ser preenchidos
         '404':
           description: Funcionário não encontrado
+        '500':
+          description: Erro interno no servidor
 
     put:
       summary: Atualiza os dados de um funcionário
@@ -85,8 +96,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Funcionario'
+        '400':
+          description: Todos os campos obrigatórios devem ser preenchidos
         '404':
           description: Funcionário não encontrado
+        '500':
+          description: Erro interno no servidor
 
     delete:
       summary: Remove um funcionário
@@ -109,8 +124,12 @@ paths:
                   message:
                     type: string
                     example: Funcionário removido com sucesso!
+        '400':
+          description: Todos os campos obrigatórios devem ser preenchidos
         '404':
           description: Funcionário não encontrado
+        '500':
+          description: Erro interno no servidor
 
 components:
   schemas:

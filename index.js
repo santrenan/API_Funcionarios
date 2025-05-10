@@ -35,7 +35,12 @@ app.get('/funcionarios', (req, res) => {
 
 // Endpoint para listar um funcionário pelo ID (ok)
 app.get('/funcionarios/:id', (req, res) => {
-    const { id } = req.params; 
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+    } 
+
+
     connection.query('SELECT * FROM funcionarios WHERE id = ?', [id], (err, result) => {
         if (err) {
             console.error('Erro ao buscar funcionário:', err);
@@ -52,6 +57,10 @@ app.get('/funcionarios/:id', (req, res) => {
 // Endpoint para criar um novo registro de funcionários (ok)
 app.post('/funcionarios', (req, res) => {
     const { nome, cargo, salario } = req.body;
+    if (!nome || !cargo || !salario) {
+        return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+    }
+
     const query = 'INSERT INTO funcionarios (nome, cargo, salario) VALUES (?, ?, ?)';
     connection.query(query, [nome, cargo, salario], (err, result) => {
         if (err) {
@@ -68,6 +77,10 @@ app.post('/funcionarios', (req, res) => {
 app.put('/funcionarios/:id', (req, res) => {
     const { id } = req.params;
     const { nome, cargo, salario } = req.body;
+    if (!id || !nome || !cargo || !salario) {
+        return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+    }
+
     const query = 'UPDATE funcionarios SET nome = ?, cargo = ?, salario = ? WHERE id = ?';
     connection.query(query, [nome, cargo, salario, id], (err, result) => {
         if (err) {
@@ -85,6 +98,11 @@ app.put('/funcionarios/:id', (req, res) => {
 // Endpoint para deletar um Funcionário (ok)
 app.delete('/funcionarios/:id', (req, res) => {
     const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+    }
+
+
     const query = 'DELETE FROM funcionarios WHERE id = ?';
     connection.query(query, [id], (err, result) => {
         if (err) {
