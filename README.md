@@ -1,4 +1,4 @@
-API RESTful de Funcionários
+## API RESTful de Funcionários
 
 Um projeto de gerenciamento de dados de funcionários utilizando **MySQL**, desenvolvida em **Node.js** com **Express**. A API permite realizar operações de CRUD (Create, Read, Update, Delete) nos registros dos funcionários com documentação **Swagger**.
 
