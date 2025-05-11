@@ -1,7 +1,18 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 const connection = require('./database');
+
+// Configuração CORS
+const corsOptions = {
+    origin: '*', // Permite qualquer origem. Substitua com o domínio específico em produção
+    methods: 'GET,POST,PUT,DELETE', // Métodos permitidos
+    allowedHeaders: 'Content-Type,Authorization', // Cabeçalhos permitidos
+    credentials: true, // Permite o envio de cookies, se necessário
+};
+
+app.use(cors(corsOptions)); // Usando CORS para todas as rotas
 
 
 // Adiciona o Swagger
