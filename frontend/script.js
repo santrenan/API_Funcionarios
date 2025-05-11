@@ -57,6 +57,32 @@ function carregarFuncionarios() {
     });
 }
 
+function buscarFuncionario() {
+    const id = document.getElementById('buscar-id').value;
+    if (!id) {
+        alert("Digite um ID válido.");
+        return;
+    }
+
+    fetch(`http://localhost:3000/funcionarios/${id}`)
+        .then(response => {
+            if (!response.ok) throw new Error('Funcionário não encontrado');
+            return response.json();
+        })
+        .then(funcionario => {
+            document.getElementById('resultado-busca').innerHTML = `
+                <p><strong>ID:</strong> ${funcionario.id}</p>
+                <p><strong>Nome:</strong> ${funcionario.nome}</p>
+                <p><strong>Cargo:</strong> ${funcionario.cargo}</p>
+                <p><strong>Salário:</strong> R$ ${funcionario.salario.toFixed(2)}</p>
+            `;
+        })
+        .catch(error => {
+            document.getElementById('resultado-busca').innerHTML = `<p style="color:red;">${error.message}</p>`;
+        });
+}
+
+
 function editarFuncionario(id, nome, cargo, salario) {
   document.getElementById('funcionarioId').value = id;
   document.getElementById('nome').value = nome;

@@ -25,6 +25,7 @@ Um projeto de gerenciamento de dados de funcionários utilizando **MySQL**, dese
 - **CORS**
 - **Nodemon** (para desenvolvimento)
 
+
 ---
 
 ##  Requisitos

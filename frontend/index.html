@@ -10,8 +10,10 @@
   <h1>Gerenciador de Funcionários</h1>
 
   <div class="container">
-    <!-- TABELA -->
+
+    <!-- SEÇÃO TABELA -->
     <div class="tabela-container">
+      <h2>Lista de Funcionários</h2>
       <table id="tabela">
         <thead>
           <tr>
@@ -26,8 +28,9 @@
       </table>
     </div>
 
-    <!-- FORMULÁRIO -->
+    <!-- COLUNA LATERAL: FORMULÁRIO + BUSCA -->
     <div class="formulario-container">
+      <h2>Cadastro / Edição</h2>
       <form id="form-funcionario">
         <input type="hidden" id="funcionarioId" />
         <input type="text" id="nome" placeholder="Nome" required />
@@ -35,7 +38,15 @@
         <input type="number" id="salario" placeholder="Salário" required />
         <button type="submit">Salvar Funcionário</button>
       </form>
+
+      <hr style="margin: 20px 0;" />
+
+      <h3>Buscar por ID</h3>
+      <input type="number" id="buscar-id" placeholder="Digite o ID do funcionário" />
+      <button onclick="buscarFuncionario()">Buscar</button>
+      <div id="resultado-busca" style="margin-top: 10px; font-size: 14px;"></div>
     </div>
+
   </div>
 
   <script src="script.js"></script>
