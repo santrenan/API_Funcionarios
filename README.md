@@ -22,6 +22,7 @@ Um projeto de gerenciamento de dados de funcionários utilizando **MySQL**, dese
 - **MySQL2**
 - **Swagger UI Express**
 - **YAMLJS**
+- **CORS**
 - **Nodemon** (para desenvolvimento)
 
 ---
@@ -133,6 +134,11 @@ Arquivo de especificação OpenAPI:
 ├── database.js
 ├── index.js
 ├── package.json
+├── package-lock.json
 ├── docs/
-│   └── openapi.yaml 
+│ └── openapi.yaml
+├── frontend/
+│ ├── index.html
+│ ├── script.js
+│ └── style.css
 ```
